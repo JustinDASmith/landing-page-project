@@ -1,0 +1,123 @@
+/* styles.css */
+
+/* Reset some default styles */
+body, h1, h2, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set up the basic styling */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: black;
+    color: white;
+}
+
+/* Header styles */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: black;
+    padding: 1rem;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: transform 1s ease-in-out; /* Slower animation transition for sliding */
+}
+
+/* Navigation menu styles */
+#navbar__list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu__link {
+    text-decoration: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease-in-out; /* Smooth transition for color change */
+}
+
+.menu__link:hover {
+    color: gold; /* Change color on hover */
+}
+
+/* Section Active Styles Keyframe Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Section styles */
+section {
+    padding: 2rem;
+    margin: 0;
+    position: relative; /* Add position relative for circle positioning */
+    animation: fadeIn 1s ease-in-out; /* Apply fadeIn animation to each section */
+}
+
+.landing__container {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    padding: 2rem;
+    margin: 2rem;
+    position: relative; /* Add position relative for circle positioning */
+}
+
+/* Style section links */
+.section-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: gold;
+    text-decoration: none;
+    border: 1px solid gold;
+    padding: 0.3rem 0.7rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.section-link:hover {
+    background-color: gold;
+    color: black;
+}
+
+/* Scroll to top button styles */
+#scroll-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#scroll-top:hover {
+    background-color: gold; /* Change background color on hover */
+}
+
+/* Footer styles */
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+footer p {
+    margin: 0;
+}
