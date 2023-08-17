@@ -5,8 +5,8 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: black; /* Set background color to black */
-    color: white; /* Set text color to white */
+    background-color: black;
+    color: white;
 }
 
 /* Header Styles */
@@ -19,10 +19,15 @@ header {
 
 /* Navigation Styles */
 #navbar__list {
+    position: fixed; /* Keep the navbar fixed at the top */
+    top: 0;
+    width: 100%;
     display: flex;
     justify-content: center;
     list-style: none;
     padding: 0;
+    background-color: black; /* Set background color to black */
+    z-index: 1000; /* Ensure the navbar is above other content */
 }
 
 .menu__link {
@@ -45,8 +50,9 @@ section {
     align-items: center;
     flex-direction: column;
     text-align: center;
-    background-color: black; /* Set background color to black */
-    color: white; /* Set text color to white */
+    background-color: black;
+    color: white;
+    margin-top: 60px; /* Ensure content is not covered by the fixed navbar */
 }
 
 .landing__container {
