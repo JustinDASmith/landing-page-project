@@ -1,7 +1,7 @@
 // Define global variables
-const sections = document.querySelectorAll('section');
-const navbarList = document.querySelector('#navbar__list');
-const scrollTopButton = document.querySelector('#scroll-top');
+const sections = document.querySelectorAll("section");
+const navbarList = document.getElementById("navbar__list");
+const scrollTopButton = document.getElementById("scroll-top");
 
 /**
  * End Global Variables
@@ -11,8 +11,8 @@ const scrollTopButton = document.querySelector('#scroll-top');
 
 // Helper function to remove active class from all sections
 function removeActiveClass() {
-    sections.forEach(section => {
-        section.classList.remove('active');
+    sections.forEach((section) => {
+        section.classList.remove("your-active-class");
     });
 }
 
@@ -22,36 +22,50 @@ function removeActiveClass() {
  * 
 */
 
-// Build the navigation menu
+// build the nav
 function buildNav() {
-    sections.forEach(section => {
-        const navListItem = document.createElement('li');
-        navListItem.innerHTML = `<a class="menu__link" href="#${section.id}">${section.dataset.nav}</a>`;
-        navbarList.appendChild(navListItem);
+    sections.forEach((section) => {
+        const listItem = document.createElement("li");
+        const sectionName = section.getAttribute("data-nav");
+        const link = document.createElement("a");
+        
+        link.textContent = sectionName;
+        link.classList.add("menu__link");
+        link.href = "#" + section.id;
+        
+        listItem.appendChild(link);
+        navbarList.appendChild(listItem);
     });
 }
 
 // Add class 'active' to section when near top of viewport
-function setActiveSection() {
-    sections.forEach(section => {
-        const sectionPosition = section.getBoundingClientRect();
-        if (sectionPosition.top <= 150 && sectionPosition.bottom >= 150) {
+function setActiveClass() {
+    sections.forEach((section) => {
+        const bounding = section.getBoundingClientRect();
+        if (bounding.top >= 0 && bounding.top <= window.innerHeight / 2) {
             removeActiveClass();
-            section.classList.add('active');
+            section.classList.add("your-active-class");
+
+            // Highlight active section in navigation
+            const activeLink = document.querySelector(`a[href="#${section.id}"]`);
+            if (activeLink) {
+                const menuLinks = document.querySelectorAll(".menu__link");
+                menuLinks.forEach((link) => link.classList.remove("active"));
+                activeLink.classList.add("active");
+            }
+        } else {
+            section.classList.remove("your-active-class");
         }
     });
 }
 
 // Scroll to anchor ID using scrollTO event
-document.querySelectorAll('.section-link').forEach(link => {
-    link.addEventListener('click', function (event) {
-        event.preventDefault();
-        const targetSection = document.querySelector(this.getAttribute('href'));
-        if (targetSection) {
-            targetSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-});
+function scrollToSection(event) {
+    event.preventDefault();
+    const targetId = event.target.getAttribute("href");
+    const targetSection = document.querySelector(targetId);
+    targetSection.scrollIntoView({ behavior: "smooth" });
+}
 
 /**
  * End Main Functions
@@ -59,25 +73,39 @@ document.querySelectorAll('.section-link').forEach(link => {
  * 
 */
 
-// Build the navigation menu
+// Build menu
 buildNav();
 
-// Set sections as active
-window.addEventListener('scroll', setActiveSection);
+// Scroll to section on link click
+navbarList.addEventListener("click", (event) => {
+    event.preventDefault();
 
-// Show or hide the scroll-to-top button based on scroll position
-window.addEventListener('scroll', function () {
-    if (window.scrollY > 500) {
-        scrollTopButton.style.display = 'block';
-    } else {
-        scrollTopButton.style.display = 'none';
+    if (event.target.tagName === "A") {
+        const targetId = event.target.getAttribute("href");
+        const targetSection = document.querySelector(targetId);
+
+        if (targetSection) {
+            targetSection.scrollIntoView({ behavior: "smooth" });
+        }
     }
 });
 
-// Scroll to top when the button is clicked
-scrollTopButton.addEventListener('click', function () {
+// Set sections as active
+document.addEventListener("scroll", setActiveClass);
+
+// Show "Back to Top" button when user scrolls below the fold
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+        scrollTopButton.style.display = "block";
+    } else {
+        scrollTopButton.style.display = "none";
+    }
+});
+
+// Scroll to top when "Back to Top" button is clicked
+scrollTopButton.addEventListener("click", () => {
     window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: "smooth"
     });
 });
